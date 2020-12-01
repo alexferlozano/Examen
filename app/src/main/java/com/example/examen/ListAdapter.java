@@ -29,16 +29,18 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private List<ListElement> Waifus;
+    private AppCompatActivity aca;
     private LayoutInflater winflater;
     private Context context;
     private Activity activity;
     public final int REQUEST_CODE_ASK_PERMISSIONS = 1001;
 
-    public ListAdapter(List<ListElement> waifuList, Context context, Activity activity){
+    public ListAdapter(List<ListElement> waifuList, Context context, Activity activity, AppCompatActivity aca){
         this.winflater = LayoutInflater.from(context);
         this.context = context;
         this.Waifus = waifuList;
         this.activity = activity;
+        this.aca = aca;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 if (isChecked) {
 //                    Toast.makeText(context, "Se presionó el boton para el permiso " + waifu.getPermission(),Toast.LENGTH_SHORT).show();
 //                    requestPermissions((Activity) context, new String[]{"Manifest.permission."+waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSION);
-                    int p = ActivityCompat.checkSelfPermission(activity, "Manifest.permission."+waifu.getPermission());
+                    int p = aca.checkSelfPermission("Manifest.permission."+waifu.getPermission());
                     if (p == 0) {
                         Toast.makeText(context, "This permission is already given", Toast.LENGTH_SHORT).show();
                     } else{
@@ -92,19 +94,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
 
         void requestPermission(ListElement waifu){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, "Manifest.permission."+waifu.getPermission())) {
+            if (aca.shouldShowRequestPermissionRationale("Manifest.permission."+waifu.getPermission())) {
                 Toast.makeText(context, "Jala verga", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 alert.setTitle(waifu.getPermission());
                 alert.setMessage("Se solicita permiso para: "+waifu.getPermission());
-                alert.setPositiveButton("ok", (dialog, which) -> ActivityCompat.requestPermissions(activity,
+                alert.setPositiveButton("ok", (dialog, which) -> aca.requestPermissions(
                         new String[]{"Manifest.permission."+waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSIONS));
                 alert.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
                 alert.create().show();
             } else {
                 Toast.makeText(context, "Jala puta", Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(activity,
-                        new String[]{"Manifest.permission."+waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSIONS);
+                aca.requestPermissions(new String[]{"Manifest.permission."+waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSIONS);
             }
         }
     }

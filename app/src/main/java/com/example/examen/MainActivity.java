@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         permisos.add(new ListElement("#00AEFF", "Llamadas", "call_black", "CALL_PHONE"));
         permisos.add(new ListElement("#4b5497", "Almacenamiento", "sd_storage_black", "INTERNET"));
 
-        ListAdapter listAdapter = new ListAdapter(permisos, MainActivity.this, this);
+        ListAdapter listAdapter = new ListAdapter(permisos, MainActivity.this, this, this);
         RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
