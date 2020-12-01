@@ -32,8 +32,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private LayoutInflater winflater;
     private Context context;
     private Activity activity;
-    final private int REQUEST_CALL_PHONE = 10;
-    final private int REQUEST_CAMERA = 11;
+    final public int REQUEST_CALL_PHONE = 10;
+    final public int REQUEST_CAMERA = 11;
 
     public ListAdapter(List<ListElement> waifuList, Context context, Activity activity) {
         this.winflater = LayoutInflater.from(context);
@@ -62,7 +62,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         Waifus = waifus;
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iconImage;
         TextView name;
@@ -81,8 +80,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             status.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     int p = ActivityCompat.checkSelfPermission(context, waifu.getPermission());
-                    Toast.makeText(context, waifu.getPermission(), Toast.LENGTH_SHORT).show();
-
                     if (p == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(context, "This permission is already given", Toast.LENGTH_SHORT).show();
                     } else {
@@ -92,7 +89,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                                     activity.requestPermissions(new String[]{waifu.getPermission()}, REQUEST_CALL_PHONE);
                                     return;
                                 case Manifest.permission.CAMERA:
-                                    Toast.makeText(context, "Bolas", Toast.LENGTH_SHORT).show();
                                     activity.requestPermissions(new String[]{waifu.getPermission()}, REQUEST_CAMERA);
                                     return;
                             }
@@ -101,6 +97,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 }
             });
         }
+
+
 
         /*void requestPermission(ListElement waifu){
             //if (ActivityCompat.shouldShowRequestPermissionRationale(activity, waifu.getPermission())) {
