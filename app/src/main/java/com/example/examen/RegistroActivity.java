@@ -29,12 +29,16 @@ import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity{
     RequestQueue queue;
+    TextView name,email,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         queue= Volley.newRequestQueue(this);
         Button btnRegre = (Button) findViewById(R.id.reg_regresar);
+        name= findViewById(R.id.reg_name);
+        email=findViewById(R.id.reg_correo);
+        password=findViewById(R.id.reg_pass);
         btnRegre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,16 +51,15 @@ public class RegistroActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Registrarse();
+                name.setText("");
+                email.setText("");
+                password.setText("");
             }
         });
     }
        private void Registrarse()
     {
         String url = "http://192.168.0.15:8000/api/registro";
-        TextView name,email,password;
-        name= findViewById(R.id.reg_name);
-        email=findViewById(R.id.reg_correo);
-        password=findViewById(R.id.reg_pass);
         JSONObject persona=new JSONObject();
         try {
             persona.put("name", name.getText().toString());
@@ -69,9 +72,6 @@ public class RegistroActivity extends AppCompatActivity{
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(RegistroActivity.this,"Has enviado los datos correctamente",Toast.LENGTH_SHORT).show();
-                name.setText("");
-                email.setText("");
-                password.setText("");
             }
         }, new Response.ErrorListener() {
             @Override
