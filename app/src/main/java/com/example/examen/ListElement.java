@@ -36,7 +36,7 @@ public class ListElement {
     }
 
     public String getPermission() {
-        return img;
+        return permission;
     }
 
     public void setPermission(String permission) { this.permission = permission; }
