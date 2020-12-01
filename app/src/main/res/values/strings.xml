@@ -8,4 +8,6 @@
     <string name="name">Nombre</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
+    <string name="profile">Mi Perfil</string>
+    <string name="permisos">Otorgar permisos</string>
 </resources>

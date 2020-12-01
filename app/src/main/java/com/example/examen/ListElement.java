@@ -1,5 +1,7 @@
 package com.example.examen;
 
+import android.graphics.drawable.Drawable;
+
 public class ListElement {
     public String color;
     public String name;

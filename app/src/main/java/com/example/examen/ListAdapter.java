@@ -1,19 +1,15 @@
 package com.example.examen;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
 import android.os.Build;
-import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,18 +19,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.drawable.DrawableUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -85,16 +74,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             status = itemView.findViewById(R.id.statusSwitch);
         }
 
-        @SuppressLint("UseCompatLoadingForDrawables")
         void bindData(final ListElement waifu) {
-            InputStream x = new InputStream() {
-                @Override
-                public int read() throws IOException {
-                    return 0;
-                }
-            };
-            iconImage.setImageResource(R.drawable.ic_admin_panel_settings_black_24dp);
-            iconImage.setColorFilter(Color.parseColor(waifu.getColor()), PorterDuff.Mode.SRC_IN);
+            //iconImage.setImageDrawable(waifu.getImg());
             name.setText(waifu.getName());
             status.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
