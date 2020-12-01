@@ -53,6 +53,7 @@
                         android:textSize="18sp"
                         android:textColorHint="@color/white"
                         android:backgroundTint="@color/white"
+                        android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:hint="@string/name"/>
                 </LinearLayout>
@@ -71,6 +72,7 @@
                         android:textSize="18sp"
                         android:textColorHint="@color/white"
                         android:backgroundTint="@color/white"
+                        android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:hint="@string/email"/>
                 </LinearLayout>
@@ -90,6 +92,7 @@
                         android:textColorHint="@color/white"
                         android:backgroundTint="@color/white"
                         android:layout_gravity="center"
+                        android:textColor="@color/white"
                         android:hint="@string/password"
                         android:inputType="textPassword"/>
                 </LinearLayout>

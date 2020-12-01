@@ -55,6 +55,7 @@
                         android:fontFamily="sans-serif-black"
                         android:hint="@string/email"
                         android:textColorHint="@color/white"
+                        android:textColor="@color/white"
                         android:textSize="18sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -72,6 +73,7 @@
                         android:textSize="18sp"
                         android:textColorHint="@color/white"
                         android:backgroundTint="@color/white"
+                        android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:hint="@string/password"
                         android:inputType="textPassword"/>
