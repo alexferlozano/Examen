@@ -32,10 +32,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         permisos = new ArrayList<>();
         permisos.add(new ListElement("#00AEFF", "Llamadas", "call_black", "CALL_PHONE"));
-        permisos.add(new ListElement("#4b5497", "Almacenamiento", "sd_storage_black", "READ_INTERNAL_STORAGE"));
+        permisos.add(new ListElement("#4b5497", "Almacenamiento", "sd_storage_black", "INTERNET"));
 
+<<<<<<< HEAD
         ListAdapter listAdapter = new ListAdapter(permisos, this);
         /*RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
+=======
+        ListAdapter listAdapter = new ListAdapter(permisos, MainActivity.this, this);
+        RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
+>>>>>>> a0bbdc8b1492c66d0f33732fcc9194c05722108c
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(listAdapter);*/
