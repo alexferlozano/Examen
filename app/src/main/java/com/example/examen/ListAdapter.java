@@ -32,9 +32,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private LayoutInflater winflater;
     private Context context;
     private Activity activity;
-    public final int REQUEST_CODE_ASK_PERMISSIONS = 1001;
+    final private int REQUEST_CALL_PHONE = 10;
+    final private int REQUEST_CAMERA = 11;
 
-    public ListAdapter(List<ListElement> waifuList, Context context, Activity activity){
+    public ListAdapter(List<ListElement> waifuList, Context context, Activity activity) {
         this.winflater = LayoutInflater.from(context);
         this.context = context;
         this.Waifus = waifuList;
@@ -42,22 +43,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return Waifus.size();
     }
 
     @Override
-    public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = winflater.inflate(R.layout.list_element, null);
         return new ListAdapter.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final ListAdapter.ViewHolder holder, final int position){
+    public void onBindViewHolder(final ListAdapter.ViewHolder holder, final int position) {
         holder.bindData(Waifus.get(position));
     }
 
-    public void setItems(List<ListElement> waifus){
+    public void setItems(List<ListElement> waifus) {
         Waifus = waifus;
     }
 
@@ -66,33 +67,43 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ImageView iconImage;
         TextView name;
         Switch status;
-        private static final int REQUEST_CODE_ASK_PERMISSION = 123;
-        ViewHolder(View itemView){
+
+        ViewHolder(View itemView) {
             super(itemView);
             iconImage = itemView.findViewById(R.id.iconImageView);
             name = itemView.findViewById(R.id.nameTextView);
             status = itemView.findViewById(R.id.statusSwitch);
         }
 
-        void bindData(final ListElement waifu){
+        void bindData(final ListElement waifu) {
             iconImage.setColorFilter(Color.parseColor(waifu.getColor()), PorterDuff.Mode.SRC_IN);
             name.setText(waifu.getName());
             status.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-//                    Toast.makeText(context, "Se presionó el boton para el permiso " + waifu.getPermission(),Toast.LENGTH_SHORT).show();
-//                    requestPermissions((Activity) context, new String[]{"Manifest.permission."+waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSION);
-                    int p = ActivityCompat.checkSelfPermission(activity, "Manifest.permission."+waifu.getPermission());
-                    if (p == 0) {
+                    int p = ActivityCompat.checkSelfPermission(context, waifu.getPermission());
+                    Toast.makeText(context, waifu.getPermission(), Toast.LENGTH_SHORT).show();
+
+                    if (p == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(context, "This permission is already given", Toast.LENGTH_SHORT).show();
-                    } else{
-                        requestPermission(waifu);
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            switch (waifu.getPermission()) {
+                                case Manifest.permission.CALL_PHONE:
+                                    activity.requestPermissions(new String[]{waifu.getPermission()}, REQUEST_CALL_PHONE);
+                                    return;
+                                case Manifest.permission.CAMERA:
+                                    Toast.makeText(context, "Bolas", Toast.LENGTH_SHORT).show();
+                                    activity.requestPermissions(new String[]{waifu.getPermission()}, REQUEST_CAMERA);
+                                    return;
+                            }
+                        }
                     }
                 }
             });
         }
 
-        void requestPermission(ListElement waifu){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, "Manifest.permission."+waifu.getPermission())) {
+        /*void requestPermission(ListElement waifu){
+            //if (ActivityCompat.shouldShowRequestPermissionRationale(activity, waifu.getPermission())) {
                 Toast.makeText(context, "Jala verga", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
                 alert.setTitle(waifu.getPermission());
@@ -101,12 +112,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                         new String[]{"Manifest.permission."+waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSIONS));
                 alert.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
                 alert.create().show();
-            } else {
+            /*} else {
                 Toast.makeText(context, "Jala puta", Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(activity,
-                        new String[]{"Manifest.permission."+waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSIONS);
-            }
-        }
+                        new String[]{waifu.getPermission()}, REQUEST_CODE_ASK_PERMISSIONS);
+            }*/
     }
-
 }
