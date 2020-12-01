@@ -23,6 +23,7 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
     RequestQueue queue;
     TextView name,email,password;
+    String correo,name2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +64,17 @@ public class LoginActivity extends AppCompatActivity {
         JsonObjectRequest request= new JsonObjectRequest(Request.Method.POST, url, persona, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Intent intent=new Intent(LoginActivity.this,UserActivity.class);
                 Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
-
+                try {
+                    correo=response.getString("email");
+                    name2=response.getString("name");
+                    Intent intent=new Intent(LoginActivity.this,UserActivity.class);
+                    intent.putExtra("name",name2);
+                    intent.putExtra("email",correo);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
